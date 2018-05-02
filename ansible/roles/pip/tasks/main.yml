@@ -1,0 +1,21 @@
+---
+- name: 1. Check if pip is already installed.
+  command: which pip
+  ignore_errors: true
+  changed_when: false
+  register: pip_installed_result
+  tags: pip
+
+- name: 2. Install pip.
+  yum:
+    name: "{{ item }}"
+    state: present
+    enablerepo: epel
+  with_items:
+    - python-pip
+  tags: pip
+
+- name: 3. Update pip
+  command: pip install pip --upgrade
+  register: pip_updated_result
+  changed_when: '"Requirement already up-to-date" not in pip_updated_result.stdout'

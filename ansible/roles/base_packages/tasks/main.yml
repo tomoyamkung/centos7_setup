@@ -1,0 +1,9 @@
+---
+- name: 3. Install base packages.
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - gcc
+    - python-devel
+    - wget

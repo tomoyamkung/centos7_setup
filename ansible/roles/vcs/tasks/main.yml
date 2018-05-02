@@ -1,0 +1,22 @@
+---
+- name: 1. Install Git.
+  yum:
+    name: "{{ item }}"
+    state: present
+    enablerepo: epel
+  with_items:
+    - git
+  tags: vcs
+
+- name: 2. Check if Mercurial is already installed.
+  command: which hg
+  register: mercurial_installed_result
+  ignore_errors: true
+  changed_when: false
+  tags: vcs
+
+- name: 3. Install Mercurial
+  pip:
+    name: Mercurial
+  when: mercurial_installed_result.rc == 1
+  tags: vcs
