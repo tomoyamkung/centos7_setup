@@ -8,11 +8,9 @@
 
 - name: 2. Install pip.
   yum:
-    name: "{{ item }}"
+    name: python-pip
     state: present
     enablerepo: epel
-  with_items:
-    - python-pip
   tags: pip
 
 - name: 3. Update pip
