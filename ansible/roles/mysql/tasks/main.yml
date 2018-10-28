@@ -1,28 +1,45 @@
 ---
+- name: remove mariadb-libs
+  yum:
+    state: absent
+    name: mariadb-libs
+
+- name: install mysql repository
+  yum:
+    state: present
+    name: http://dev.mysql.com/get/mysql57-community-release-el7-7.noarch.rpm
+    validate_certs: no
+
 - name: be sure mysql server is installed
-  yum: name={{item}} state=present
-  with_items:
-    - mysql-server
-    - mysql-devel
-    - MySQL-python
+  yum:
+    name: [yum-utils, MySQL-python, mysql-community-server, mysql-devel]
+    state: present
 
 - name: mysqld config
-  template: src=my_cnf.j2 dest=/etc/my.cnf mode=0644
+  template:
+    src: my_cnf.j2
+    dest: /etc/my.cnf
+    owner: root
+    group: root
+    mode: 0644
   notify:
     - restart mysqld
 
 - name: be sure mysqld is running and enabled
-  service: name=mysqld state=running enabled=yes
+  service:
+    name: mysqld
+    state: started
+    enabled: yes
 
-- name: create database
-  mysql_db:
-    db: "{{ dbname }}"
-    state: present
-    encoding: utf8
-
-- name: create database user
-  mysql_user: >
-    name={{ dbuser }}
-    password=""
-    priv={{ dbname }}.*:ALL/{{ test_dbname }}.*:ALL
-    state=present
+#- name: create database
+#  mysql_db:
+#    db: "{{ dbname }}"
+#    state: present
+#    encoding: utf8
+#
+#- name: create database user
+#  mysql_user: >
+#    name={{ dbuser }}
+#    password=""
+#    priv={{ dbname }}.*:ALL/{{ test_dbname }}.*:ALL
+#    state=present
