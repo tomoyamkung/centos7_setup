@@ -1,5 +1,5 @@
 ---
 - name: 3. Install base packages.
   yum:
-    name: [gcc, python-devel, wget]
+    name: [gcc, python-devel, wget, zlib-devel, libffi-devel, gcc, zlib-devel, bzip2, bzip2-devel, readline, readline-devel, sqlite, sqlite-devel, openssl, openssl-devel]
     state: present
