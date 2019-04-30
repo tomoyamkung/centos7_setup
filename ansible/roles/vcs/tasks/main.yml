@@ -1,11 +1,9 @@
 ---
 - name: 1. Install Git.
   yum:
-    name: "{{ item }}"
+    name: ['git']
     state: present
     enablerepo: epel
-  with_items:
-    - git
   tags: vcs
 
 - name: 2. Check if Mercurial is already installed.

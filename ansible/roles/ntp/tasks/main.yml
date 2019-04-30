@@ -1,11 +1,9 @@
 ---
 - name: 1. Check if ntp is already installed.
   yum:
-    name: "{{ item }}"
+    name: ['ntp']
     state: present
     enablerepo: epel
-  with_items:
-    - ntp
   tags: ntp
 
 - name: 2. Check if ntpd is already running and enabled.

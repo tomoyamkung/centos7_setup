@@ -7,12 +7,12 @@
   ignore_errors: yes
   tags: locale
 
-- name: 3. Create locale ja_JP.utf8.
+- name: 2. Create locale ja_JP.utf8.
   command: localedef -f UTF-8 -i ja_JP ja_JP
   when: locale_list.stdout_lines.count("ja_JP.utf8") < 1
   tags: locale
 
-- name: 4. Set locale to ja_JP.utf8
+- name: 3. Set locale to ja_JP.utf8
   command: localectl set-locale LANG=ja_JP.utf8
   when: locale_list.stdout_lines.count("ja_JP.utf8") < 1
   tags: locale
