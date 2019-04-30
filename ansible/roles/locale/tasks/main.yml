@@ -1,13 +1,5 @@
 ---
-- name: 1. Check if Japanese support is already installed.
-  yum: 
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - "@Japanese Support"
-  tags: locale
-
-- name: 2. Check if ja_JP.utf8 is already installed.
+- name: 1. Check if ja_JP.utf8 is already installed.
   shell: localectl status | grep -i "ja_JP.utf8"
   register: locale_list
   changed_when: false
